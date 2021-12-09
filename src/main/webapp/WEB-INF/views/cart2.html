@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+
+  <script src="https://use.fontawesome.com/c560c025cf.js"></script>
+  <link rel="stylesheet" href="styleCart.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="card shopping-cart">
+    <div class="card-header bg-dark text-light">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      Shipping cart
+      <a href="/shop" class="btn btn-outline-info btn-sm pull-right">Continue shopping</a>
+      <div class="clearfix"></div>
+    </div>
+    <div class="card-body">
+      <!-- PRODUCT -->
+      <div th:each="product : ${cart.products}">
+        <div class="row" >
+          <div class="col-12 col-sm-12 col-md-2 text-center">
+            <img class="img-responsive" th:src="@{'/image/' + ${product.getKey().image}}" alt="prewiew" width="120" height="80">
+          </div>
+          <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+            <h4 class="product-name"><strong><a th:href="@{/view/__${product.getKey().id}__}" th:text="${product.getKey().name}"></a></strong></h4>
+            <h4>
+              <small th:text="${product.getKey().description}"></small>
+            </h4>
+          </div>
+          <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+              <h6><strong th:text="${product.getKey().price} + ' VND'"> <span class="text-muted">x</span></strong></h6>
+            </div>
+            <div class="col-4 col-sm-4 col-md-4">
+              <div class="quantity">
+                <a id="decrease_button" th:href="@{/remove/__${product.getKey().id}__(action='show')}"
+                ><i class="material-icons">remove</i></a>
+                <span class="qty" th:text="${product.getValue()}"></span>
+                <a id="increase_button" th:href="@{/add/__${product.getKey().id}__(action='show')}"
+                   ><i class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="col-2 col-sm-2 col-md-2 text-right">
+
+              <a th:href="@{/remove/__${product.getKey().id}__(action='delete')}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <!-- END PRODUCT -->
+
+      <!-- END PRODUCT -->
+
+    </div>
+    <div class="card-footer">
+<!--      <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">-->
+<!--        <div class="row">-->
+<!--          <div class="col-6">-->
+<!--            <input type="text" class="form-control" placeholder="cupone code">-->
+<!--          </div>-->
+<!--          <div class="col-6">-->
+<!--            <input type="submit" class="btn btn-default" value="Use cupone">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="pull-right" style="margin: 10px">
+        <a href="" class="btn btn-success pull-right">Checkout</a>
+        <div class="pull-right" style="margin: 5px">
+          Total price: <b th:text="${cart.countTotalPayment()}"></b>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
